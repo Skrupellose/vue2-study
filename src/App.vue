@@ -5,7 +5,10 @@
       <todo-list :lists="listArr"
                  :checkTodo="checkTodo"
                  :delTodo="delTodo" />
-      <todo-footer />
+      <todo-footer :total="total"
+                   :done="done"
+                   :isAll="isAll"
+                   :checkAll="checkAll" />
     </div>
   </div>
 </template>
@@ -50,6 +53,30 @@ export default {
           this.listArr.splice(i, 1)
         }
       })
+    },
+    checkAll(flag) {
+      this.listArr.forEach((list) => {
+        list.done = flag
+      })
+    },
+  },
+  computed: {
+    total() {
+      return this.listArr.length
+    },
+    done() {
+      return this.listArr.reduce((v, c) => {
+        c = c.done ? 1 : 0
+        return v + c
+      }, 0)
+    },
+    isAll: {
+      set(value) {
+        this.checkAll(value)
+      },
+      get() {
+        return this.total === this.done && this.total > 0
+      },
     },
   },
 }

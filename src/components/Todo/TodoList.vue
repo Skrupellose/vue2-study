@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TodoItem from '@/components/TodoItem.vue'
+import TodoItem from '@/components/Todo/TodoItem.vue'
 export default {
   name: 'TodoList',
   props: ['lists', 'checkTodo', 'delTodo'],

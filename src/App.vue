@@ -16,6 +16,9 @@ export default {
     Todo,
     Blog,
   },
+  mounted() {
+    this.$toast.bottom('center 1')
+  },
 }
 </script>
 <style lang="less">

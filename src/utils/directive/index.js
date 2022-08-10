@@ -1,3 +1,14 @@
-export { focus } from "@/utils/directive/directive"
+import { focus, demo } from "@/utils/directive/directive"
 
-// export { focus }
+const directives = {
+    focus,
+    demo
+}
+
+export default {
+    install(Vue) {
+        Object.keys(directives).forEach((k) => {
+            Vue.directive(k, directives[k])
+        })
+    }
+}

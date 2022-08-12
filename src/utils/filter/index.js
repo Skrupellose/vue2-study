@@ -1,7 +1,8 @@
-import { capitalize } from "./filter";
+import { capitalize, currency } from "./filter";
 
 const filters = {
-    capitalize
+    capitalize,
+    currency
 }
 
 export default {

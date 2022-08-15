@@ -9,10 +9,15 @@
     <div v-demo:prop.a.b="msg"
          style="width:500px"></div> -->
 
-    <!-- <Vuex /> -->
     <!-- 
     <shop></shop> -->
-    <my-shop></my-shop>
+    <!-- <my-shop></my-shop> -->
+    <router-link to="/shop">Go to Shop</router-link>
+    <router-link to="/myshop">Go to MyShop</router-link>
+    <router-link :to="{name: 'user', params:{ username: 'zhangsan'}}">Go to User</router-link>
+    <button @click="$router.push({name: 'user', params:{ username: 'lisi'}})">Go to User</button>
+    <button @click="$router.push({path: `/user/wangwu`, })">Go to User</button>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -22,6 +27,7 @@ import Todo from '@/components/Todo/index.vue'
 import Blog from '@/components/Blog/index.vue'
 import Shop from '@/components/Shop/index.vue'
 import MyShop from '@/components/MyShop/index.vue'
+// import User from '@components/User/index.vue'
 export default {
   data() {
     return {
@@ -36,8 +42,7 @@ export default {
     MyShop,
   },
   mounted() {
-    // this.$toast('center 1', 'center')
-    // this.$toast.center('123')
+    // console.log(this.$route.params)
   },
 }
 </script>

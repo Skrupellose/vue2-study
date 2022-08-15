@@ -4,19 +4,43 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: '/myshop',
+    name: 'myshop',
+    component: () => import('@/components/MyShop/index.vue')
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: () => import('@/components/Shop/index.vue'),
+    beforeEnter: (to, from, next) => {
+      console.log(`beforeEnter: ${to.name}`);
+      next()
+    },
+  },
+  {
+    path: '/user/:username',
+    name: 'user',
+    props: route => ({ q: route.query.q, username: route.params.username }),
+    component: () => import('@/components/User/index.vue'),
+    children: [
+      {
+        path: 'todo',
+        component: () => import('@/components/Todo/index.vue')
+      },
+      {
+        path: 'blog',
+        component: () => import('@/components/Blog/index.vue')
+      },
+      {
+        path: 'setting',
+        components: {
+          default: () => import('@/components/Setting/settingTitle.vue'),
+          body: () => import('@/components/Setting/settingBody.vue')
+        }
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({
@@ -24,5 +48,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeResolve((to, from, next) => {
+  console.log(`beforeResolve ${to.name}`);
+  next()
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(`beforeEach ${to.name}`);
+  if (to.name == 'myshop') {
+    next('/shop')
+  } else {
+    next()
+  }
+})
+
 
 export default router
